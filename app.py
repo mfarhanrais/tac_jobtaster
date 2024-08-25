@@ -6,7 +6,6 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-import string
 from openai import OpenAI
 
 ### --- TITLE BAR --- ###
