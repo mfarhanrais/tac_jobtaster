@@ -4,7 +4,6 @@ requests
 bs4
 wordcloud
 matplotlib
-nltk.corpus
-nltk.tokenize
+nltk
 string
 openai
