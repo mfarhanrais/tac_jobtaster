@@ -98,7 +98,8 @@ if selected == '2. Removing Stop Words':
         
         with tab2:
             highlighted_text = ""
-            stop_words = set(stopwords.words('english'))
+            #stop_words = set(stopwords.words('english'))
+            stopwords = nltk.corpus.stopwords.words('english')
             for word in word_tokenize(article_text):
                 if word.lower() in stop_words:
                     highlighted_text += f"<mark style='background-color:yellow'>{word}</mark> "
@@ -108,8 +109,10 @@ if selected == '2. Removing Stop Words':
 
         with tab3:
             text_to_analyze = article_text
-            word_tokens = word_tokenize(text_to_analyze)
-            filtered_text = [word for word in word_tokens if word.lower() not in stop_words and word not in string.punctuation]
+            #word_tokens = word_tokenize(text_to_analyze)
+            filtered_text = gensim.utils.simple_preprocess(text_to_analyze)
+            filtered_text = [word for word in word_tokens if word.lower() not in stop_words]
+            
             st.write(' '.join(filtered_text))
 
         with tab4:
