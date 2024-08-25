@@ -1,0 +1,10 @@
+streamlit
+streamlit_option_menu
+requests
+bs4
+wordcloud
+matplotlib.pyplot
+nltk.corpus
+nltk.tokenize
+string
+openai
