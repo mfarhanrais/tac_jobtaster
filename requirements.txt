@@ -3,7 +3,7 @@ streamlit_option_menu
 requests
 bs4
 wordcloud
-matplotlib.pyplot
+matplotlib
 nltk.corpus
 nltk.tokenize
 string
