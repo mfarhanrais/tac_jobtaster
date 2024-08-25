@@ -99,8 +99,11 @@ if selected == '2. Removing Stop Words':
         with tab2:
             highlighted_text = ""
             #stop_words = set(stopwords.words('english'))
-            stop_words = nltk.corpus.stopwords.words('english')
-            for word in gensim.utils.simple_preprocess(article_text):
+            #stop_words = nltk.corpus.stopwords.words('english')
+            text_to_analyze = article_text
+            stop_words = stopwords.words('english')
+            filtered_text = gensim.utils.simple_preprocess(text_to_analyze)
+            for word in filtered_text:
                 if word.lower() in stop_words:
                     highlighted_text += f"<mark style='background-color:yellow'>{word}</mark> "
                 else:
