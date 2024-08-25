@@ -6,4 +6,3 @@ wordcloud
 matplotlib
 nltk
 openai
-nltk.download('punkt_tab')
