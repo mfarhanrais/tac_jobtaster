@@ -107,6 +107,7 @@ if selected == '2. Removing Stop Words':
                 else:
                     highlighted_text += word + " "
             st.markdown(highlighted_text, unsafe_allow_html=True)
+            st.write(filtered_text)
 
         with tab3:
             text_to_analyze = article_text
