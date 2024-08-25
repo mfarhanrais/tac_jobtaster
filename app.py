@@ -145,7 +145,7 @@ if selected == '3. Prompt Engineering':
 
     # 2. Set your OpenAI API key
     client = OpenAI(
-        api_key=my_api_key
+        api_key=st.secrets["my_api_key"]
     )
 
     # 4. Submit Button
