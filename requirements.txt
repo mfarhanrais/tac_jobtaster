@@ -6,3 +6,4 @@ wordcloud
 matplotlib
 nltk
 openai
+gensim

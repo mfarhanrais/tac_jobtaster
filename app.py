@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from openai import OpenAI
+import gensim.utils
 
 ### --- TITLE BAR --- ###
 st.title('Data Scientist - Job Taster')
@@ -66,8 +67,11 @@ if selected == '1. Analyse HTML':
                 text_to_analyze = article_text
 
                 # 2. Remove stop words and punctuation
-                word_tokens = word_tokenize(text_to_analyze)
-                filtered_text = word_tokens
+                #word_tokens = word_tokenize(text_to_analyze)
+                #filtered_text = word_tokens
+
+                # Tokenize using gensim instead of nltk
+                filtered_text = gensim.utils.simple_preprocess(text_to_analyze)
 
                 # 3. Create word cloud
                 wordcloud = WordCloud(width=800, height=400).generate(' '.join(filtered_text))
