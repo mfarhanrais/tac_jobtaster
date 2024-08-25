@@ -101,7 +101,7 @@ if selected == '2. Removing Stop Words':
             #stop_words = set(stopwords.words('english'))
             #stop_words = nltk.corpus.stopwords.words('english')
             text_to_analyze = article_text
-            stop_words = stopwords.words('english')
+            stop_words = nltk.corpus.stopwords.words('english')
             filtered_text = gensim.utils.simple_preprocess(text_to_analyze)
             for word in filtered_text:
                 if word.lower() in stop_words:
