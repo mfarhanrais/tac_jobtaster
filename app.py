@@ -92,6 +92,7 @@ if selected == '2. Removing Stop Words':
             st.write(article_text)
         
         with tab2:
+            st.write(article_text)
             text_to_analyze2 = article_text
             filtered_text = gensim.utils.simple_preprocess(text_to_analyze2)
             stop_words = nltk.corpus.stopwords.words('english')
