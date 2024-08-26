@@ -14,9 +14,6 @@ st.write('M. Farhan Rais | The Astronauts Collective')
 # Input Field for URL
 url = st.text_input("Paste the news article URL here:")
 # Submit Button
-# Declare a global string variable to store the article text
-article_text = ""
-
 if st.button('Submit'):
     if url:
         try:
@@ -84,6 +81,28 @@ if selected == '1. Analyse HTML':
 if selected == '2. Removing Stop Words':
     st.header('2. Removing Stop Words', divider="red")
     st.write("Stop words from: https://gist.github.com/sebleier/554280")
+
+    # Input Field for URL
+    url = st.text_input("Paste the news article URL here:")
+    # Submit Button
+    if st.button('Submit'):
+        if url:
+            try:
+                # Fetch the Webpage Content
+                response = requests.get(url)
+                response.raise_for_status()  # Check for HTTP errors
+
+                # Parse the HTML
+                soup = BeautifulSoup(response.content, 'html.parser')
+
+                # Extract the Article Text (You might need to adjust this based on the website structure)
+                article_text = soup.find('article').get_text(strip=True)
+                st.success("Article text extracted successfully!")
+            except requests.exceptions.RequestException as e:
+                st.error(f"Error fetching the webpage: {e}")
+        else:
+            st.warning("Please enter a URL first.")
+
     # Display Results in Tabs
     tab1, tab2, tab3, tab4 = st.tabs(["Original Article", "Stop Words Highlighted", "Stop Words Removed", "Word Cloud"])
 
@@ -92,7 +111,6 @@ if selected == '2. Removing Stop Words':
             st.write(article_text)
         
         with tab2:
-            st.write(article_text)
             text_to_analyze = article_text
             stop_words = nltk.corpus.stopwords.words('english')
             highlighted_text = ""
