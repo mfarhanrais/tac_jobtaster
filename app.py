@@ -11,26 +11,6 @@ import gensim.utils
 ### --- TITLE BAR --- ###
 st.title('Data Scientist - Job Taster')
 st.write('M. Farhan Rais | The Astronauts Collective')
-# Input Field for URL
-url = st.text_input("Paste the news article URL here:")
-# Submit Button
-if st.button('Submit'):
-    if url:
-        try:
-            # Fetch the Webpage Content
-            response = requests.get(url)
-            response.raise_for_status()  # Check for HTTP errors
-
-            # Parse the HTML
-            soup = BeautifulSoup(response.content, 'html.parser')
-
-            # Extract the Article Text (You might need to adjust this based on the website structure)
-            article_text = soup.find('article').get_text(strip=True)
-            st.success("Article text extracted successfully!")
-        except requests.exceptions.RequestException as e:
-            st.error(f"Error fetching the webpage: {e}")
-    else:
-        st.warning("Please enter a URL first.")
 
 ### --- TOP NAVIGATION BAR --- ###
 selected = option_menu(
@@ -47,6 +27,28 @@ selected = option_menu(
 ### --- 1st SECTION --- ###
 if selected == '1. Analyse HTML':
     st.header('1. Analyse HTML', divider="red")
+
+    # Input Field for URL
+    url = st.text_input("Paste the news article URL here:")
+    # Submit Button
+    if st.button('Submit'):
+        if url:
+            try:
+                # Fetch the Webpage Content
+                response = requests.get(url)
+                response.raise_for_status()  # Check for HTTP errors
+
+                # Parse the HTML
+                soup = BeautifulSoup(response.content, 'html.parser')
+
+                # Extract the Article Text (You might need to adjust this based on the website structure)
+                article_text = soup.find('article').get_text(strip=True)
+                st.success("Article text extracted successfully!")
+            except requests.exceptions.RequestException as e:
+                st.error(f"Error fetching the webpage: {e}")
+        else:
+            st.warning("Please enter a URL first.")
+
     # Display Results in Tabs
     tab1, tab2, tab3 = st.tabs(["HTML Source Code", "Article Text", "Word Cloud"])
 
