@@ -163,14 +163,6 @@ if selected == '3. Prompt Engineering':
     # 3. Generate Prompt Button
     if st.button('Generate Prompt'):
 
-        # Fetch the Webpage Content
-        response = requests.get(url)
-        response.raise_for_status()  # Check for HTTP errors
-        # Parse the HTML
-        soup = BeautifulSoup(response.content, 'html.parser')
-        # Extract the Article Text (You might need to adjust this based on the website structure)
-        article_text = soup.find('article').get_text(strip=True)
-
         prompt = f"""
         # CONTEXT #
         {context}
@@ -191,7 +183,7 @@ if selected == '3. Prompt Engineering':
         {response_format}
 
         # TEXT #
-        {article_text}
+        {"Singapore National Day Rally"}
         """
         st.subheader("Generated Prompt:")
         st.code(prompt)
