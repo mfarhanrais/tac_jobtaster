@@ -4,7 +4,6 @@ import requests
 from bs4 import BeautifulSoup
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
-from nltk.corpus import stopwords
 from openai import OpenAI
 import gensim.utils
 
