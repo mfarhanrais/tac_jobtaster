@@ -5,7 +5,6 @@ from bs4 import BeautifulSoup
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
 from openai import OpenAI
 import gensim.utils
 
@@ -66,10 +65,6 @@ if selected == '1. Analyse HTML':
                 # 1. Get the article_text
                 text_to_analyze = article_text
 
-                # 2. Remove stop words and punctuation
-                #word_tokens = word_tokenize(text_to_analyze)
-                #filtered_text = word_tokens
-
                 # Tokenize using gensim instead of nltk
                 filtered_text = gensim.utils.simple_preprocess(text_to_analyze)
 
@@ -107,7 +102,6 @@ if selected == '2. Removing Stop Words':
                 else:
                     highlighted_text += word + " "
             st.markdown(highlighted_text, unsafe_allow_html=True)
-            st.write(text_to_analyze)
 
         with tab3:
             text_to_analyze = article_text
@@ -122,10 +116,8 @@ if selected == '2. Removing Stop Words':
                 # 1. Get the article_text
                 text_to_analyze = article_text
 
-                # 2. Remove stop words and punctuation
-                stop_words = set(stopwords.words('english'))
-                word_tokens = word_tokenize(text_to_analyze)
-                filtered_text = [word for word in word_tokens if word.lower() not in stop_words and word not in string.punctuation]
+                # Tokenize using gensim instead of nltk
+                filtered_text = gensim.utils.simple_preprocess(text_to_analyze)
 
                 # 3. Create word cloud
                 wordcloud = WordCloud(width=800, height=400).generate(' '.join(filtered_text))
