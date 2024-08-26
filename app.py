@@ -120,7 +120,7 @@ if selected == '2. Removing Stop Words':
             text_to_analyze = article_text
             #word_tokens = word_tokenize(text_to_analyze)
             filtered_text = gensim.utils.simple_preprocess(text_to_analyze)
-            filtered_text = [word for word in word_tokens if word.lower() not in stop_words]
+            filtered_text = [word for word in filtered_text if word.lower() not in stop_words]
             
             st.write(' '.join(filtered_text))
 
