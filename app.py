@@ -189,9 +189,6 @@ if selected == '3. Prompt Engineering':
                     {article_text}
                     """
 
-                    #test
-                    st.write(message)
-
                     # Call ChatGPT API
                     response = client.completions.create(
                         model="gpt-4o-mini",  # or any suitable model
