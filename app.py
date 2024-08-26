@@ -153,49 +153,93 @@ if selected == '3. Prompt Engineering':
     style = st.selectbox("Style:", ["Political Analyst", "Economics Consultant", "Social Worker", "Teacher", "Singaporen Uncle"])
     tone = st.selectbox("Tone:", ["Formal", "Casual", "Humorous", "Empathetic", "Autoritative", "Inspirational", "Nonchalant"])
     audience = st.text_input("Audience:", value="Student")
-    response_format = st.text_input("Desired Response Format:", value="A brief answer to the question in the Objective.")
+    response_format = st.text_input("Desired Response Format:", value="A brief answer to the question in the OBJECTIVE based on the TEXT.")
 
     # 2. Set your OpenAI API key
     client = OpenAI(
         api_key=st.secrets["my_api_key"]
     )
 
+    # 3. Generate Prompt Button
+    if st.button('Generate Prompt'):
+
+        # Fetch the Webpage Content
+        response = requests.get(url)
+        response.raise_for_status()  # Check for HTTP errors
+        # Parse the HTML
+        soup = BeautifulSoup(response.content, 'html.parser')
+        # Extract the Article Text (You might need to adjust this based on the website structure)
+        article_text = soup.find('article').get_text(strip=True)
+
+        prompt = f"""
+        # CONTEXT #
+        {context}
+
+        # OBJECTIVE #
+        {objective}
+
+        # STYLE #
+        {style}
+
+        # TONE #
+        {tone}
+
+        # AUDIENCE #
+        {audience}
+
+        # RESPONSE #
+        {response_format}
+
+        # TEXT #
+        {article_text}
+        """
+        st.subheader("Generated Prompt:")
+        st.code(prompt)
+
     # 4. Submit Button
     if st.button('Ask ChatGPT'):
         if url and 'article_text' in locals():
-                    # Construct the prompt
-                    message = f"""
-                    # CONTEXT #
-                    {context}
+            # Construct the prompt
+            # Fetch the Webpage Content
+            response = requests.get(url)
+            response.raise_for_status()  # Check for HTTP errors
+            # Parse the HTML
+            soup = BeautifulSoup(response.content, 'html.parser')
+            # Extract the Article Text (You might need to adjust this based on the website structure)
+            article_text = soup.find('article').get_text(strip=True)
+            message = f"""
+            # CONTEXT #
+            {context}
 
-                    # OBJECTIVE #
-                    Answer the following question based on the provided text. 
-                    If the answer cannot be found in the text, say "I don't have enough information to answer that."
-                    Question: {objective}
+            # OBJECTIVE #
+            Answer the following question based on the provided text. 
+            If the answer cannot be found in the text, say "I don't have enough information to answer that."
+            Question: {objective}
 
-                    # STYLE #
-                    {style}
+            # STYLE #
+            {style}
 
-                    # TONE #
-                    {tone}
+            # TONE #
+            {tone}
 
-                    # AUDIENCE #
-                    {audience}
+            # AUDIENCE #
+            {audience}
 
-                    # RESPONSE #
-                    {response_format}
+            # RESPONSE #
+            {response_format}
 
-                    # TEXT #
-                    {article_text}
-                    """
+            # TEXT #
+            {article_text}
+            """
 
-                    # Call ChatGPT API
-                    response = client.completions.create(
-                        model="gpt-4o-mini",  # or any suitable model
-                        prompt=message,
-                        max_tokens=200,  # Adjust as needed
-                        temperature=0.7,  # Adjust for creativity vs. determinism
-                    )
+            # Call ChatGPT API
+            response = client.completions.create(
+                #model="gpt-4o-mini",  # or any suitable model
+                model="gpt-3.5-turbo",
+                prompt=message,
+                max_tokens=200,  # Adjust as needed
+                temperature=0.7,  # Adjust for creativity vs. determinism
+            )
 
-                    # Display ChatGPT's response
-                    st.write(response.choices[0].text.strip())
+            # Display ChatGPT's response
+            st.write(response.choices[0].text.strip())
