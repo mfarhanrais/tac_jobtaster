@@ -4,6 +4,5 @@ requests
 bs4
 wordcloud
 matplotlib
-nltk
 openai
 gensim
