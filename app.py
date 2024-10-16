@@ -183,7 +183,7 @@ if selected == '3. Prompt Engineering':
         {response_format}
 
         # TEXT #
-        {"Singapore National Day Rally"}
+        {"Singapore National Day Rally 2022"}
         """
         st.subheader("Generated Prompt:")
         st.code(prompt)
